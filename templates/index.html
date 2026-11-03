@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizMaster</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>🎓 QuizMaster</h1>
+        <p>Test Your Knowledge and Challenge Yourself!</p>
+    </header>
+
+    {% if not quiz_started %}
+
+    <div class="card">
+        <h2>Welcome to QuizMaster!</h2>
+        <p>Enter your details to start your quiz.</p>
+
+        <form action="{{ url_for('start') }}" method="POST">
+
+            <label>Student Name</label>
+            <input type="text" name="student_name"
+                   placeholder="Enter your name" required maxlength="50">
+
+            <label>Select Quiz Category</label>
+            <select name="category" required>
+                <option value="">Choose Category</option>
+                {% for category in categories %}
+                <option value="{{ category }}">{{ category }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit">Start Quiz 🚀</button>
+        </form>
+    </div>
+
+    {% else %}
+
+    <div class="quiz-info">
+        <h2>Hello, {{ student_name }}!</h2>
+        <p>Category: {{ category }}</p>
+        <div class="timer">
+            Time Left: <span id="time">60</span> seconds
+        </div>
+    </div>
+
+    <form id="quizForm" action="{{ url_for('submit') }}" method="POST">
+
+        {% for question in quiz_questions %}
+        {% set question_index = loop.index0 %}
+
+        <div class="card">
+            <h3>Question {{ loop.index }}</h3>
+            <p>{{ question.question }}</p>
+
+            {% for option in question.options %}
+            <label class="option">
+                <input type="radio"
+                       name="q{{ question_index }}"
+                       value="{{ option }}"
+                       required>
+                {{ option }}
+            </label>
+            {% endfor %}
+        </div>
+
+        {% endfor %}
+
+        <button type="submit">Submit Quiz</button>
+
+    </form>
+
+    <script>
+        let remaining = 60;
+        const timerDisplay = document.getElementById("time");
+        const quizForm = document.getElementById("quizForm");
+
+        const countdown = setInterval(function() {
+            remaining--;
+            timerDisplay.textContent = remaining;
+
+            if (remaining <= 10) {
+                timerDisplay.style.color = "red";
+            }
+
+            if (remaining <= 0) {
+                clearInterval(countdown);
+
+                // Remove required validation when time expires.
+                quizForm.querySelectorAll("input[required]")
+                    .forEach(input => input.required = false);
+
+                quizForm.submit();
+            }
+        }, 1000);
+
+        quizForm.addEventListener("submit", function() {
+            clearInterval(countdown);
+        });
+    </script>
+
+    {% endif %}
+
+    <footer>
+        <p>QuizMaster | Built with Python, Flask, HTML and CSS</p>
+    </footer>
+
+</div>
+
+</body>
+</html>

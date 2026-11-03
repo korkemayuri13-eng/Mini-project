@@ -1,0 +1,151 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #dbeafe, #ede9fe);
+    color: #1e293b;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+header {
+    text-align: center;
+    background: linear-gradient(135deg, #4338ca, #7c3aed);
+    color: white;
+    padding: 30px 15px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+}
+
+header h1 {
+    margin-top: 0;
+    font-size: 32px;
+}
+
+.card {
+    background: white;
+    padding: 22px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+input[type="text"],
+select {
+    width: 100%;
+    padding: 13px;
+    margin-top: 8px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+}
+
+.option {
+    display: block;
+    padding: 13px;
+    margin: 10px 0;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.option:hover {
+    background: #eef2ff;
+    border-color: #6366f1;
+}
+
+button,
+.restart {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 9px;
+    background: #4f46e5;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+button:hover,
+.restart:hover {
+    background: #3730a3;
+}
+
+.quiz-info {
+    text-align: center;
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.timer {
+    font-size: 23px;
+    font-weight: bold;
+    color: #16a34a;
+    margin-top: 15px;
+}
+
+.score {
+    font-size: 48px;
+    font-weight: bold;
+    color: #4f46e5;
+}
+
+.pass {
+    color: #15803d;
+    font-weight: bold;
+}
+
+.fail {
+    color: #dc2626;
+    font-weight: bold;
+}
+
+.explanation {
+    background: #f1f5f9;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.result-card {
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #64748b;
+    font-size: 13px;
+}
+
+@media(max-width: 500px) {
+    body {
+        padding: 10px;
+    }
+
+    header h1 {
+        font-size: 25px;
+    }
+
+    .card {
+        padding: 16px;
+    }
+}

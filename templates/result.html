@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>🏆 Quiz Results</h1>
+        <p>Here is your performance report.</p>
+    </header>
+
+    <div class="card result-card">
+
+        <h2>Congratulations, {{ student_name }}!</h2>
+        <p>Category: {{ category }}</p>
+
+        {% if time_up %}
+        <p class="fail">Time is over! Your answers were submitted.</p>
+        {% endif %}
+
+        <div class="score">
+            {{ score }} / {{ total }}
+        </div>
+
+        <h2>{{ "%.0f"|format(percentage) }}%</h2>
+
+        {% if status == "PASS" %}
+        <h2 class="pass">🎉 PASS</h2>
+        <p>Excellent work! Keep learning.</p>
+        {% else %}
+        <h2 class="fail">❌ FAIL</h2>
+        <p>Don't give up. Keep practising!</p>
+        {% endif %}
+
+    </div>
+
+    <h2>Answer Review</h2>
+
+    {% for item in results %}
+
+    <div class="card">
+        <h3>Question {{ loop.index }}</h3>
+
+        <p>{{ item.question }}</p>
+
+        <p>Your answer: <strong>{{ item.selected }}</strong></p>
+
+        <p>Correct answer: <strong>{{ item.answer }}</strong></p>
+
+        {% if item.correct %}
+        <p class="pass">✓ Correct Answer</p>
+        {% else %}
+        <p class="fail">✗ Incorrect Answer</p>
+        {% endif %}
+
+        <p class="explanation">
+            {{ item.explanation }}
+        </p>
+    </div>
+
+    {% endfor %}
+
+    <a href="{{ url_for('home') }}" class="restart">
+        🔄 Restart Quiz
+    </a>
+
+    <footer>
+        <p>Thank you for using QuizMaster!</p>
+    </footer>
+
+</div>
+
+</body>
+</html>
